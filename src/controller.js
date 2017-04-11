@@ -1,15 +1,17 @@
 const request = require('request')
-const API_KEY = // API KEY GOES HERE
-const BASE_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=${API_KEY}`
+const parseString = require('xml2js').parseString
 
-function getPlaces(req, res, next) {
+function searchGames(req, res, next) {
+  // console.log(req.query.search)
+  const BASE_URL = `https://www.boardgamegeek.com/xmlapi2/search?query=catan`
+
   request(BASE_URL, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      res.send(body)
+      parseString(body, (err, result) => res.send(JSON.stringify(result)))
     }
   })
 }
 
 module.exports = {
-  getPlaces: getPlaces
+  searchGames: searchGames
 };
