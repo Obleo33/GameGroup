@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import { games } from './searchGamesReducer'
+import { searchGamesDisplay, searchIds } from './searchGamesReducer'
 
 const rootReducer = combineReducers({
   router: routerReducer,
-  games,
+  searchGamesDisplay,
+  searchIds,
 })
 
 export default rootReducer

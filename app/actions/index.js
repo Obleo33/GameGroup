@@ -1,9 +1,10 @@
-
+//Search API calls
 export const searchGames = (searchString) => {
   return dispatch => {
     fetch(`/api/games?search=${searchString}`)
       .then((response) => response.json())
-      .then(response => console.log(gameIds(response.items.item)))
+      .then(response => gameIds(response.items.item))
+      .then(ids => dispatch(searchResults(ids)))
   }
 }
 
@@ -14,15 +15,28 @@ const gameIds = (searchArr) => {
 }
 
 
+export const getGames = (range, array) => {
+  return dispatch => {
+    fetch(`/api/thing?game=${array[0]}`)
+      .then(response => response.json())
+      .then(response => console.log(response))
+  }
+}
+
 //Search reducer
-export const searchResults = search => {
+export const searchResults = searchIds => {
   return {
-    type: 'GET_GAMES',
-    search
+    type: 'SEARCH_GAME_IDS',
+    searchIds
   }
 }
 
 
+
+
+// for (let i = range[0]; i < range[1]; i++){
+//   return dispatch =>
+// }
 
 
 // let search
