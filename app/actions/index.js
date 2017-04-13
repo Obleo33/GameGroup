@@ -5,8 +5,14 @@ export const searchGames = (searchString) => {
         .then((response) => response.json())
         .then(response => gameIds(response.items.item))
         .then(searchIds => dispatch(searchResults(searchIds)))
-        .then(array => getGame(array.searchIds[2]))
-        .then(game => console.log(game))
+        .then(obj => {
+          const firstTen = obj.searchIds.slice(0,10)
+          const display = firstTen.map(gameId => getGame(gameId))
+          Promise.all(display)
+            .then(display => dispatch(displayGames(display)))
+        })
+
+
   }
 }
   // .then(searchIds => dispatch(searchResults(searchIds)))
@@ -24,10 +30,9 @@ const gameIds = (searchArr) => {
 
 
 const getGame = (gameId) => {
-  console.log(gameId);
   return fetch(`/api/thing?game=${gameId}`)
     .then(response => response.json())
-    .then(response => gameCleaner(response.items.item))
+    .then(response => response.items.item)
 }
 
 const gameCleaner = (rawGame) => {
@@ -59,10 +64,10 @@ export const clearDisplay = () => {
   }
 }
 
-export const displayGames = game => {
-  console.log('in the action', game);
+export const displayGames = games => {
+  console.log(games);
   return {
     type: 'DISPLAY_GAMES',
-    game
+    games
   }
 }

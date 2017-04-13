@@ -1,10 +1,9 @@
 const initialState = []
 
 export const displaySearchedGames = (state=[], action) => {
-  console.log(action)
   switch(action.type) {
     case 'DISPLAY_GAMES':
-      return [...state, action.game]
+      return [...action.games]
     case 'CLEAR_DISPLAY':
       return initialState
     default:
