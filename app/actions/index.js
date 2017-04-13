@@ -2,26 +2,42 @@
 export const searchGames = (searchString) => {
   return dispatch => {
     fetch(`/api/games?search=${searchString}`)
-      .then((response) => response.json())
-      .then(response => gameIds(response.items.item))
-      .then(ids => dispatch(searchResults(ids)))
+        .then((response) => response.json())
+        .then(response => gameIds(response.items.item))
+        .then(searchIds => dispatch(searchResults(searchIds)))
+        .then(array => getGame(array.searchIds[2]))
+        .then(game => console.log(game))
   }
 }
+  // .then(searchIds => dispatch(searchResults(searchIds)))
+
+// dispatch(searchResults(searchIds))
 
 const gameIds = (searchArr) => {
   return searchArr.reduce((a,b) => {
-    return [...a, b.$.id]
+    if(b.type === 'boardgame'){
+      return [...a, b.id]
+    }
+    return a
   },[])
 }
 
 
-export const getGames = (range, array) => {
-  return dispatch => {
-    fetch(`/api/thing?game=${array[0]}`)
-      .then(response => response.json())
-      .then(response => console.log(response))
-  }
+const getGame = (gameId) => {
+  console.log(gameId);
+  return fetch(`/api/thing?game=${gameId}`)
+    .then(response => response.json())
+    .then(response => gameCleaner(response.items.item))
 }
+
+const gameCleaner = (rawGame) => {
+  const game = {
+    name: rawGame.name.find(name => name.type === 'primary')
+  }
+
+  return game
+}
+
 
 //Search reducer
 export const searchResults = searchIds => {
@@ -31,15 +47,22 @@ export const searchResults = searchIds => {
   }
 }
 
+export const clearSearch = () => {
+  return {
+    type: 'CLEAR_SEARCH'
+  }
+}
 
+export const clearDisplay = () => {
+  return {
+    type: 'CLEAR_DISPLAY'
+  }
+}
 
-
-// for (let i = range[0]; i < range[1]; i++){
-//   return dispatch =>
-// }
-
-
-// let search
-// parseString(body, (err, result) =>  search = result)
-// console.log(search['items']['item'][0].$.id)
-// res.send(body)
+export const displayGames = game => {
+  console.log('in the action', game);
+  return {
+    type: 'DISPLAY_GAMES',
+    game
+  }
+}
