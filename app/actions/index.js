@@ -1,3 +1,5 @@
+import gameCleaner from '../helper.js'
+
 //Search API calls
 export const searchGames = (searchString) => {
   return dispatch => {
@@ -15,9 +17,6 @@ export const searchGames = (searchString) => {
 
   }
 }
-  // .then(searchIds => dispatch(searchResults(searchIds)))
-
-// dispatch(searchResults(searchIds))
 
 const gameIds = (searchArr) => {
   return searchArr.reduce((a,b) => {
@@ -32,15 +31,7 @@ const gameIds = (searchArr) => {
 const getGame = (gameId) => {
   return fetch(`/api/thing?game=${gameId}`)
     .then(response => response.json())
-    .then(response => response.items.item)
-}
-
-const gameCleaner = (rawGame) => {
-  const game = {
-    name: rawGame.name.find(name => name.type === 'primary')
-  }
-
-  return game
+    .then(response => gameCleaner(response.items.item))
 }
 
 
