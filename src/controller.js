@@ -7,7 +7,7 @@ const parser = new xml2js.Parser({
 })
 
 function searchGames(req, res, next) {
-  const BASE_URL = `https://www.boardgamegeek.com/xmlapi2/search?type=boardgame&query=${req.query.search}`
+  const BASE_URL = `https://www.boardgamegeek.com/xmlapi2/search?query=${req.query.search}`
 
   request(BASE_URL, function (error, response, body) {
     if (!error && response.statusCode == 200) {

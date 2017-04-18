@@ -13,15 +13,19 @@ module.exports = {
      publicPath: '/'
    },
    module: {
-     loaders: [{
+     loaders: [
+      {
        test: /.jsx?$/,
        loader: 'babel-loader',
        include: path.join(__dirname, 'app'),
        exclude: /node_modules/,
        query: {
          presets: ['es2015', 'react']
-       }
-     }]
+       },
+      },
+       { test: /\.css$/, loader: 'style!css' },
+       { test: /\.scss$/, loader: 'style!css!sass' },
+    ],
    },
   resolve: {
     extensions: ['', '.js', '.jsx', '.json', '.scss', '.css']
