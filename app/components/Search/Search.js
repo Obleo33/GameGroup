@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Link, NavLink } from 'react-router-dom'
-import { updateStoredCollection } from '../../helper.js'
+import { updateStoredCollection, displayGames } from '../../helper.js'
 
 class Search extends Component {
   constructor(){
@@ -12,7 +12,6 @@ class Search extends Component {
   }
 
   componentDidMount(){
-    this.props.clearDisplay()
   }
 
   componentWillReceiveProps(props){
@@ -36,10 +35,7 @@ class Search extends Component {
     const end = this.props.searchIds.length
 
     console.log(end);
-    // buttonType === 'next' && () =>
-    // buttonType === 'previous' && () =>
-    //
-    // this.setState({ range: [min, max] })
+
   }
 
   handleAdd(game){
@@ -65,11 +61,11 @@ class Search extends Component {
         <section className='search-game-container'>
           {this.props.displaySearchedGames.map(game => {
             return(
-              <div className="game-card" key={game.id}>
-                <h2 className="game-title">{game.name}</h2>
-                <img className="game-image" src={game.image}></img>
-                <button className="add-collection-button" onClick={ () => this.handleAdd(game) }>Add To Collection</button>
-              </div>
+                <div key={game.id} className="game-card" >
+                  <h2 className="game-title">{game.name}</h2>
+                  <img className="game-image" src={game.image}></img>
+                  <button className="add-collection-button" onClick={ () => this.handleAdd(game) }>Add To Collection</button>
+                </div>
             )
           })}
 

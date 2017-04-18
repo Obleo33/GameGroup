@@ -1,4 +1,4 @@
-import { gameCleaner, filterGames } from '../helper.js'
+import { gameCleaner, filterGames, displayGames } from '../helper.js'
 
 //Search API calls
 export const searchGames = (searchString) => {
@@ -9,14 +9,15 @@ export const searchGames = (searchString) => {
         .then(searchIds => dispatch(searchResults(searchIds)))
         .then(obj => {
           let topResults
-          if (obj.searchIds.length > 10){
-            topResults = obj.searchIds.slice(0,10)
-          } else {
+
+          if(obj.searchIds.length <= 10){
             topResults = obj.searchIds
+          } else {
+            topResults = displayGames(obj.searchIds, 0, 10)
           }
           const display = topResults.map(gameId => getGame(gameId))
           Promise.all(display)
-            .then(display => dispatch(displayGames(display)))
+            .then(display => dispatch(updateDisplayGames(display)))
         })
   }
 }
@@ -27,9 +28,6 @@ const getGame = (gameId) => {
     .then(response => gameCleaner(response.items.item))
 }
 
-const changeDisplayGames = () => {
-
-}
 
 export const loadCollectionFromStorage = () => {
   const collectionString = localStorage.getItem('storedCollection')
@@ -64,7 +62,8 @@ export const clearDisplay = () => {
   }
 }
 
-export const displayGames = games => {
+
+export const updateDisplayGames = games => {
   return {
     type: 'DISPLAY_GAMES',
     games
