@@ -4,12 +4,12 @@ import { Route, Link, NavLink } from 'react-router-dom'
 class MyCollection extends Component {
 
   viewCollection(){
-    console.log(this.props.collection.length);
     if(this.props.collection.length){
-      console.log('hey');
       return this.props.collection.map(game => {
         return (
-          <div key={game.id}>{game.name}</div>
+          <Link to={`/game/${game.id}`} key={`collection-${game.id}`}>
+            <div className="game-title">{game.name}</div>
+          </Link>
         )
       })
     }
@@ -21,6 +21,7 @@ class MyCollection extends Component {
   render(){
     return (
       <div className="collection-container">
+        <p>there are {this.props.collection.length} games in your collection</p>
         {this.viewCollection()}
       </div>
     )

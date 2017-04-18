@@ -60,3 +60,18 @@ export const filterGames = (searchArr) => {
 
   return filterResponse
 }
+
+export const displayGames = (arr, min, max) => {
+  const start = min > 0? min: 0
+  const end = max > arr.length? arr.length -1: max
+
+  return arr.slice(start, end)
+}
+
+
+export class pageResult {
+  constructor(arr, pageNum, displayGames){
+    this.gameArray = arr
+    this.display = `<button onClick={}>${pageNum}</button>`
+  }
+}
