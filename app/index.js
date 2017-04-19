@@ -13,8 +13,10 @@ import rootReducer from './reducers/index.js';
 
 import AppContainer from './components/App/AppContainer';
 
+import './assets/styles/reset.scss'
 import './assets/styles/main.scss'
-
+import './components/MyCollection/MyCollection.scss'
+import './components/Search/Search.scss'
 
 
 

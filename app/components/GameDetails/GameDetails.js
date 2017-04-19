@@ -14,7 +14,7 @@ class GameDetails extends Component {
     return (
       <div className="game-detail">
           {this.props.game.name}
-        <button className='back-button' onClick={() => this.props.history.back()}> Back </button>
+        <button className='back-button' onClick={() => this.props.history.push('/mycollection')}> Back </button>
       </div>
     )
   }

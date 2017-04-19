@@ -1,0 +1,25 @@
+.collection-container {
+  display: flex;
+  margin: 20px;
+  background-color: gray;
+  overflow: scroll;
+  padding: 10px;
+  overflow-y:hidden;
+}
+
+.game-title-collection {
+  height: 30px;
+}
+
+.collection-message {
+  margin: 20px;
+}
+
+.game-image-collection {
+  height: 200px;
+}
+
+.remove-button {
+  border: 1px solid #282B28;
+  background-color: white;
+}

@@ -1,3 +1,72 @@
+
 .game-image {
-  height: 100px
+  height: 150px;
+}
+
+.game-search form {
+  font-weight: light;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.game-search label {
+  padding: 20px;
+}
+
+.results {
+  margin: 20px;
+}
+
+.search-input {
+  font-family : 'Josefin Sans',
+                sans-serif;
+  font-size: 24px;
+  font-weight: light;
+}
+
+.submit-button {
+  margin-left: 20px;
+  font-family : 'Josefin Sans',
+                sans-serif;
+  font-weight: light;
+  font-size: 24px;
+  background-color: white;
+  border-radius: 2px;
+  border: 1px solid #282B28;
+}
+
+.search-game-container {
+  margin: 0 20px 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-card {
+  margin: 10px 10px 10px 0;
+  background-color: #282B28;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-title {
+  font-size: 15px;
+}
+
+.page-container {
+  margin: 20px;
+}
+
+.game-title {
+  padding: 5px;
+  color: white;
+}
+
+.add-collection-button {
+  border: 1px solid #282B28;
+  background-color: white;
+  font-family : 'Josefin Sans',
+                sans-serif;
+  padding-top: 5px;
+
 }

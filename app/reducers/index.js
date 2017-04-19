@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import { displaySearchedGames, searchIds, collection, displayPages } from './searchGamesReducer'
+import { displaySearchedGames, searchIds, displayPages } from './searchGamesReducer'
+import { collection } from './myCollectionReducer'
 
 const rootReducer = combineReducers({
   router: routerReducer,

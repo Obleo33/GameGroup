@@ -1,43 +1,35 @@
-@import '../../components/Search/Search.scss';
+@import "../../components/Search/Search.scss";
+
+@font-face {
+  font-family : 'Josefin Sans',
+                sans-serif;
+  src         : url(https://fonts.googleapis.com/css?family=Josefin+Sans);
+}
 
 body {
-  background: #f4f4f4;
-  font-family: sans-serif;
-  font-weight: 100;
+  background  : #f4f4f4;
+  font-family : 'Josefin Sans',
+                sans-serif;
+  font-weight : 100;
 }
 
-#main h1 {
-  padding: 20px;
-  border-bottom: 1px dashed #aaa;
-  color: rgba(0,0,0,0.6);
-  font-weight: 100;
-  font-family: sans-serif;
+header {
+  height           : 125px;
+  color            : #FE5555;
+  background-color : #282B28;
 }
 
-#main {
-  text-align: center;
+header h1 {
+  padding     : 20px 0 10px 20px;
+  color       : #FE5555;
+  font-size   : 50px;
+  font-weight : bold;
 }
 
-
-.game-image {
-  height: 150px;
-}
-
-.search-game-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.game-card {
-  margin: 5px;
-  background-color: gray;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.game-title {
-  font-size: 15px;
-
+.navlink {
+  margin          : 20px;
+  color           : #FE5555;
+  text-decoration : none;
+  font-size       : 24px;
+  font-weight     : 100;
 }

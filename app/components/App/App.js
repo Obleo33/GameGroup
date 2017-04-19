@@ -13,20 +13,22 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="game-group-container">
         <header>
-          <h1>GAMEGROUP</h1>
+          <h1>GAMEGROUP 1.0</h1>
           <nav className="site-nav">
             <NavLink className='my-collection-link navlink' to='/mycollection'>My Collection</NavLink>
             <NavLink className='search-link navlink' to='/search'>Search</NavLink>
           </nav>
         </header>
-        <Route path='/search' component={ SearchContainer } history={ history }/>
-        <Route path='/mycollection' component={ MyCollectionContainer } history={ history }/>
-        <Route exact path='/game/:id' render={({ match }) => {
-          const game = this.props.collection.find(game => game.id === match.params.id)
-          return <GameDetailsContainer game={ game } history={ history } />
-        }} />
+        <div>
+          <Route path='/search' render={({history}) => <SearchContainer history={ history }/>}/>
+          <Route path='/mycollection' render={({history}) => <MyCollectionContainer history={ history }/>}/>
+          <Route exact path='/game/:id' render={({ match, history }) => {
+            const game = this.props.collection.find(game => game.id === match.params.id)
+            return <GameDetailsContainer game={ game } history={ history } />
+          }} />
+        </div>
       </div>
     )
   }
