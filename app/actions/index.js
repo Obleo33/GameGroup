@@ -37,6 +37,13 @@ export const loadCollectionFromStorage = () => {
   return dispatch => dispatch(loadCollection(storedCollection))
 }
 
+export const removeFromCollection = (id, collection) => {
+  const newCollection = collection.filter(game => game.id !== id)
+
+  return dispatch => dispatch(removeCollection(newCollection))
+  //(dispatch => dispatch(updateCollection(newCollection)))
+}
+
 
 //Search actions
 export const searchResults = searchIds => {
@@ -79,6 +86,14 @@ export const addCollection = game => {
   return {
     type: 'ADD_COLLECTION',
     game
+  }
+}
+
+export const removeCollection = collection => {
+  console.log('removeCollection');
+  return {
+    type: 'REMOVE_COLLECTION',
+    collection
   }
 }
 

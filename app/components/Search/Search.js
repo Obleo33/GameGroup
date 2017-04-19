@@ -7,7 +7,7 @@ class Search extends Component {
     super()
     this.state={
       search: '',
-      range: [0,10]
+      page: 1
     }
   }
 
@@ -15,14 +15,14 @@ class Search extends Component {
     props.collection.length && updateStoredCollection(props.collection)
   }
 
-  handleClick(e){
+  handleSubmit(e){
     e.preventDefault()
     this.props.clearSearch()
     this.props.searchGames(this.state.search)
     this.setState({ search: '' })
   }
 
-  handleChange(e){
+  handleSearchInput(e){
     this.setState({ search: e.target.value })
   }
 
@@ -52,7 +52,7 @@ class Search extends Component {
 
   searchResults() {
     if(this.props.searchIds.length){
-      return <p>Your search returned {this.props.searchIds.length} results</p>
+      return <p className="results">Your search returned {this.props.searchIds.length} results</p>
     }
   }
 
@@ -63,6 +63,7 @@ class Search extends Component {
       return (
         <div className="page-container">
           {keys.map(key => <button className="page-button"
+                                   key={`page-${key}`}
                                    name={key}
                                    onClick={this.handlPage.bind(this)}>{key}</button>)}
         </div>
@@ -74,11 +75,14 @@ class Search extends Component {
     return (
       <div className="game-search">
         <form>
-          <label>Search for a game</label>
-          <input value={this.state.search}
-                 onChange={this.handleChange.bind(this)}
+          <label>Search:</label>
+          <input className="search-input"
+                 value={this.state.search}
+                 onChange={this.handleSearchInput.bind(this)}
                  placeholder="Search for a game"></input>
-          <button onClick={this.handleClick.bind(this)}>Submit</button>
+          <button className="submit-button"
+                  onClick={this.handleSubmit.bind(this)}
+                  disabled={!this.state.search}>Submit</button>
         </form>
         {this.searchResults()}
         {this.pages()}

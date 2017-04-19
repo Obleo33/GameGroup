@@ -87,6 +87,4 @@ export const searchPages = (resultsArr) => {
   	return a
   },{})
 	return pages
-
-
 }
