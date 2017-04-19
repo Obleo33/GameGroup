@@ -1,33 +1,29 @@
-import { gameCleaner, filterGames, displayGames } from '../helper.js'
+import { gameCleaner, filterGames, displayGames, searchPages } from '../helper.js'
 
 //Search API calls
 export const searchGames = (searchString) => {
   return dispatch => {
     fetch(`/api/games?search=${searchString}`)
-        .then((response) => response.json())
-        .then(response => filterGames(response.items.item))
-        .then(searchIds => dispatch(searchResults(searchIds)))
-        .then(obj => {
-          let topResults
-
-          if(obj.searchIds.length <= 10){
-            topResults = obj.searchIds
-          } else {
-            topResults = displayGames(obj.searchIds, 0, 10)
-          }
-          const display = topResults.map(gameId => getGame(gameId))
-          Promise.all(display)
-            .then(display => dispatch(updateDisplayGames(display)))
-        })
+      .then((response) => response.json())
+      .then(response => filterGames(response.items.item))
+      .then(searchIds => dispatch(searchResults(searchIds)))
+      .then(result => dispatch(storeSearchPages(searchPages(result.searchIds))))
+      .then(result => showGames(result.displayPages[1], dispatch))
   }
 }
 
-const getGame = (gameId) => {
+export const getGame = (gameId) => {
   return fetch(`/api/thing?game=${gameId}`)
     .then(response => response.json())
     .then(response => gameCleaner(response.items.item))
 }
 
+export const showGames = (arr, dispatch) => {
+  const display = arr.map(gameId => getGame(gameId))
+
+    Promise.all(display)
+      .then(display => dispatch(updateDisplayGames(display)))
+}
 
 export const loadCollectionFromStorage = () => {
   const collectionString = localStorage.getItem('storedCollection')
@@ -47,6 +43,13 @@ export const searchResults = searchIds => {
   return {
     type: 'SEARCH_GAME_IDS',
     searchIds
+  }
+}
+
+export const storeSearchPages = displayPages => {
+  return {
+    type: 'SEARCH_PAGES',
+    displayPages
   }
 }
 

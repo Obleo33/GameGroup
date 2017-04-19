@@ -11,9 +11,6 @@ class Search extends Component {
     }
   }
 
-  componentDidMount(){
-  }
-
   componentWillReceiveProps(props){
     props.collection.length && updateStoredCollection(props.collection)
   }
@@ -47,25 +44,52 @@ class Search extends Component {
     }
   }
 
+  handlPage(e){
+    const page = this.props.displayPages[e.target.name]
+
+    return dispatch => dispatch(this.props.showGames(page, dispatch))
+  }
+
+  searchResults() {
+    if(this.props.searchIds.length){
+      return <p>Your search returned {this.props.searchIds.length} results</p>
+    }
+  }
+
+  pages() {
+    if(this.props.searchIds.length){
+      const keys = Object.keys(this.props.displayPages)
+
+      return (
+        <div className="page-container">
+          {keys.map(key => <button className="page-button"
+                                   name={key}
+                                   onClick={this.handlPage.bind(this)}>{key}</button>)}
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div className="game-search">
         <form>
           <label>Search for a game</label>
-          <input value={this.state.search} onChange={this.handleChange.bind(this)} placeholder="Search for a game"></input>
+          <input value={this.state.search}
+                 onChange={this.handleChange.bind(this)}
+                 placeholder="Search for a game"></input>
           <button onClick={this.handleClick.bind(this)}>Submit</button>
         </form>
-        <p>Your search returned {this.props.searchIds.length} results</p>
-        <button name="previous" onClick={ this.handlePage.bind(this) }>Previous Page</button>
-        <button name="next" onClick={ this.handlePage.bind(this) }>Next Page</button>
+        {this.searchResults()}
+        {this.pages()}
         <section className='search-game-container'>
           {this.props.displaySearchedGames.map(game => {
             return(
-                <div key={game.id} className="game-card" >
-                  <h2 className="game-title">{game.name}</h2>
-                  <img className="game-image" src={game.image}></img>
-                  <button className="add-collection-button" onClick={ () => this.handleAdd(game) }>Add To Collection</button>
-                </div>
+              <div key={game.id} className="game-card" >
+                <h2 className="game-title">{game.name}</h2>
+                <img className="game-image" src={game.image}></img>
+                <button className="add-collection-button" onClick={ () => this.handleAdd(game) }>Add To Collection</button>
+              </div>
             )
           })}
 

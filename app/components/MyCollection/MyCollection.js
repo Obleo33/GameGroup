@@ -4,6 +4,7 @@ import { Route, Link, NavLink } from 'react-router-dom'
 class MyCollection extends Component {
 
   viewCollection(){
+    console.log(history)
     if(this.props.collection.length){
       return this.props.collection.map(game => {
         return (
