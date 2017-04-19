@@ -5,6 +5,8 @@ import { Route } from 'react-router-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk'
+import { Router, browserHistory } from 'react-router';
+
 // import logger from 'redux-logger'
 import createHistory from 'history/createBrowserHistory';
 import rootReducer from './reducers/index.js';
@@ -12,6 +14,9 @@ import rootReducer from './reducers/index.js';
 import AppContainer from './components/App/AppContainer';
 
 import './assets/styles/main.scss'
+
+
+
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 const history = createHistory();

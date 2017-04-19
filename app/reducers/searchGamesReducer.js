@@ -22,6 +22,15 @@ export const searchIds = (state=[], action) => {
   }
 }
 
+export const displayPages = (state=[], action) => {
+  switch(action.type){
+    case 'SEARCH_PAGES':
+      return action.displayPages
+    default:
+      return state
+  }
+}
+
 export const collection = (state=[], action) => {
   switch(action.type){
     case 'ADD_COLLECTION':

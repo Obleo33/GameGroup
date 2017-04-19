@@ -68,10 +68,25 @@ export const displayGames = (arr, min, max) => {
   return arr.slice(start, end)
 }
 
+export const searchPages = (resultsArr) => {
+  let count = 0
+  let page = 1
 
-export class pageResult {
-  constructor(arr, pageNum, displayGames){
-    this.gameArray = arr
-    this.display = `<button onClick={}>${pageNum}</button>`
-  }
+  let pages = resultsArr.reduce((a, b) => {
+  	if(!a[page]){
+  		a[page] = [b]
+  		count ++
+  	} else if (count < 9 ) {
+  		a[page] = [...a[page], b]
+  		count ++
+  	} else {
+  		a[page] = [...a[page], b]
+  		count = 0
+  		page ++
+  	}
+  	return a
+  },{})
+	return pages
+
+
 }
