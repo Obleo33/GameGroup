@@ -1,9 +1,10 @@
-const initialState = []
+const initialState = {}
 
-export const displaySearchedGames = (state=[], action) => {
+export const displaySearchedGames = (state={}, action) => {
+  console.log(action);
   switch(action.type) {
     case 'DISPLAY_GAMES':
-      return [...action.games]
+      return Object.assign({}, state, action.games)
     case 'CLEAR_DISPLAY':
       return initialState
     default:

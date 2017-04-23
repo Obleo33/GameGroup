@@ -17,22 +17,15 @@ class Search extends Component {
 
   handleSubmit(e){
     e.preventDefault()
+    this.props.clearDisplay()
     this.props.clearSearch()
+    this.setState({ page: 1 })
     this.props.searchGames(this.state.search)
     this.setState({ search: '' })
   }
 
   handleSearchInput(e){
     this.setState({ search: e.target.value })
-  }
-
-  handlePage(e){
-    const buttonType = e.target.name
-    let [min, max] = this.state.range
-    const end = this.props.searchIds.length
-
-    console.log(end);
-
   }
 
   handleAdd(game){
@@ -45,9 +38,13 @@ class Search extends Component {
   }
 
   handlPage(e){
-    const page = this.props.displayPages[e.target.name]
+    this.setState({ page: e.target.name })
+    if(!this.props.displaySearchedGames[e.target.name]){
+      const page = this.props.displayPages[e.target.name]
+      this.props.showGames(page, e.target.name)
+    } else {
 
-    return dispatch => dispatch(this.props.showGames(page, dispatch))
+    }
   }
 
   searchResults() {
@@ -71,6 +68,23 @@ class Search extends Component {
     }
   }
 
+  displaySearched() {
+    const display = this.props.displaySearchedGames[this.state.page]
+
+      console.log(display)
+    if (display) {
+      return display.map(game => {
+        return(
+          <div key={game.id} className="game-card" >
+            <h2 className="game-title">{game.name}</h2>
+            <img className="game-image" src={game.image}></img>
+            <button className="add-collection-button" onClick={ () => this.handleAdd(game) }>Add To Collection</button>
+          </div>
+        )
+      })
+    }
+  }
+
   render() {
     return (
       <div className="game-search">
@@ -87,16 +101,7 @@ class Search extends Component {
         {this.searchResults()}
         {this.pages()}
         <section className='search-game-container'>
-          {this.props.displaySearchedGames.map(game => {
-            return(
-              <div key={game.id} className="game-card" >
-                <h2 className="game-title">{game.name}</h2>
-                <img className="game-image" src={game.image}></img>
-                <button className="add-collection-button" onClick={ () => this.handleAdd(game) }>Add To Collection</button>
-              </div>
-            )
-          })}
-
+          {this.displaySearched()}
         </section>
       </div>
     )

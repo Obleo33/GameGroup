@@ -61,13 +61,6 @@ export const filterGames = (searchArr) => {
   return filterResponse
 }
 
-export const displayGames = (arr, min, max) => {
-  const start = min > 0? min: 0
-  const end = max > arr.length? arr.length -1: max
-
-  return arr.slice(start, end)
-}
-
 export const searchPages = (resultsArr) => {
   let count = 0
   let page = 1
@@ -76,7 +69,7 @@ export const searchPages = (resultsArr) => {
   	if(!a[page]){
   		a[page] = [b]
   		count ++
-  	} else if (count < 9 ) {
+  	} else if (count < 4 ) {
   		a[page] = [...a[page], b]
   		count ++
   	} else {
