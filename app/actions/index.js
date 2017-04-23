@@ -8,6 +8,7 @@ export const searchGames = (searchString) => {
       .then(response => filterGames(response.items.item))
       .then(searchIds => dispatch(searchResults(searchIds)))
       .then(result => dispatch(storeSearchPages(searchPages(result.searchIds))))
+      .then(display => showFirstPage(display.displayPages[1], 1, dispatch))
   }
 }
 
@@ -17,11 +18,19 @@ export const getGame = (gameId) => {
     .then(response => gameCleaner(response.items.item))
 }
 
-export const showGames = (arr, page) => {
+const showFirstPage = (arr, page, dispatch) => {
+  const display = arr.map(gameId => getGame(gameId))
 
+  Promise.all(display)
+  .then(games => {return { [page]: games}})
+  .then(display => dispatch(updateDisplayGames(display)))
+}
+
+export const showGames = (arr, page) => {
+  console.log(arr, page);
   return dispatch => {
     const display = arr.map(gameId => getGame(gameId))
-
+    console.log(display);
     Promise.all(display)
     .then(games => {return { [page]: games}})
     .then(display => dispatch(updateDisplayGames(display)))
@@ -77,7 +86,6 @@ export const clearDisplay = () => {
 
 
 export const updateDisplayGames = games => {
-  console.log(games)
   return {
     type: 'DISPLAY_GAMES',
     games

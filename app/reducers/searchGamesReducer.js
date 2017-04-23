@@ -1,7 +1,6 @@
 const initialState = {}
 
 export const displaySearchedGames = (state={}, action) => {
-  console.log(action);
   switch(action.type) {
     case 'DISPLAY_GAMES':
       return Object.assign({}, state, action.games)

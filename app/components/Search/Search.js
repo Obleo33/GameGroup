@@ -37,13 +37,17 @@ class Search extends Component {
     }
   }
 
-  handlPage(e){
-    this.setState({ page: e.target.name })
-    if(!this.props.displaySearchedGames[e.target.name]){
-      const page = this.props.displayPages[e.target.name]
-      this.props.showGames(page, e.target.name)
-    } else {
+  setPage(e){
+    const page = e.target.name
+    this.setState({ page: page })
+    this.handlePageRender(page)
+  }
 
+  handlePageRender(page) {
+    console.log(page);
+    if(!this.props.displaySearchedGames[page]){
+      const pageResults = this.props.displayPages[page]
+      this.props.showGames(pageResults, page)
     }
   }
 
@@ -62,7 +66,7 @@ class Search extends Component {
           {keys.map(key => <button className="page-button"
                                    key={`page-${key}`}
                                    name={key}
-                                   onClick={this.handlPage.bind(this)}>{key}</button>)}
+                                   onClick={this.setPage.bind(this)}>{key}</button>)}
         </div>
       )
     }
@@ -70,8 +74,6 @@ class Search extends Component {
 
   displaySearched() {
     const display = this.props.displaySearchedGames[this.state.page]
-
-      console.log(display)
     if (display) {
       return display.map(game => {
         return(
