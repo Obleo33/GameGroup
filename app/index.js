@@ -18,8 +18,6 @@ import './assets/styles/main.scss'
 import './components/MyCollection/MyCollection.scss'
 import './components/Search/Search.scss'
 
-
-
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 const history = createHistory();
 const middleware = [routerMiddleware(history), thunk]
@@ -34,3 +32,5 @@ const router = (
 )
 
 ReactDOM.render(router, document.getElementById('main'))
+
+
